@@ -17,13 +17,18 @@ server-urls: https://acmecorp.ves.console.volterra.io/api
 p12-bundle: /root/acmecorp.ves.volterra.io.api-creds.p12
 ```
 
-Note that my p12 is stored locally and .vesconfig has specified the file as the target of a volume mount.
+Note that my p12 is stored locally and .vesconfig specifies the file's path as the target of a volume mount.
 
 ## Alias
 Alias the `vesctl` command to a docker run command that passes in the local ENV variable for your P12 password, volume mounts for `vesconfig` and your p12 cert.
 
 ```shell
-alias vesctl='docker run --env VES_P12_PASSWORD -v ~/.vesconfig:/root/.vesconfig -v ~/Downloads/acmecorp.ves.volterra.io.api-creds.p12:/root/acmecorp.ves.volterra.io.api-creds.p12 --rm -it kreynoldsf5/vesctl:latest'
+alias vesctl='docker run \
+  --env VES_P12_PASSWORD \
+  -v ~/.vesconfig:/root/.vesconfig \
+  -v ~/Downloads/acmecorp.ves.volterra.io.api-creds.p12:/root/acmecorp.ves.volterra.io.api-creds.p12 \
+  --rm -it \
+  kreynoldsf5/vesctl:latest'
 ```
 
 ## Use it
