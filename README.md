@@ -7,7 +7,8 @@ docker run -v ~/.vesconfig:/root/.vesconfig kreynoldsf5/vesctl:latest
 
 ## Configure vesctl
 
-Follow the instructions (here)[https://gitlab.com/volterra.io/vesctl] to grab API credentials from VoltConsole. Essentially:
+Follow the instructions (here)[https://gitlab.com/volterra.io/vesctl] to grab API credentials from VoltConsole. Export the P12 password. Write a config file.
+
 
 ```shell
 $ export VES_P12_PASSWORD=myp12password
