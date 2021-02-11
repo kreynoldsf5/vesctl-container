@@ -1,4 +1,4 @@
-name: build container and publish to Docker Hub (if needed)
+name: build container and publish to Docker Hub
 on:
   push:
     branches: main
@@ -17,7 +17,7 @@ jobs:
       -
         name: execute py script 
         run: |
-          python helper.py
+          python $GITHUB_WORKSPACE/.github/helper.py
       -
         name: Login to DockerHub
         if: ${{ env.action_continue }}
