@@ -20,14 +20,14 @@ jobs:
           python helper.py
       -
         name: Login to DockerHub
-        if: ${{ <env.action_continue }}
+        if: ${{ env.action_continue }}
         uses: docker/login-action@v1 
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
-        if: ${{ <env.action_continue }}
+        if: ${{ env.action_continue }}
         id: docker_build
         uses: docker/build-push-action@v2
         with:
@@ -35,7 +35,7 @@ jobs:
           tags: kreynoldsf5/vesctl:latest, kreynoldsf5/vesctl:${{ env.tag }}
       -
         name: Update repo description
-        if: ${{ <env.action_continue }}
+        if: ${{ env.action_continue }}
         uses: peter-evans/dockerhub-description@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -43,5 +43,5 @@ jobs:
           repository: kreynoldsf5/vesctl
       -
         name: Image digest
-        if: ${{ <env.action_continue }}
+        if: ${{ env.action_continue }}
         run: echo ${{ steps.docker_build.outputs.digest }}
