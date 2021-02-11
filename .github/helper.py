@@ -4,7 +4,6 @@ import os
 
 try:
     GHworkspace = os.environ.get("GITHUB_WORKSPACE")
-    GHenv = os.environ.get("GITHUB_ENV")
 except Exception as e:
     print(e)
 GLurl = "https://gitlab.com/api/graphql"
@@ -31,7 +30,6 @@ def VesctlInfo(s):
     }
     
 def HubTagExist(s, tag):
-    print(GHenv)
     try:
         resp = s.get(DHurl)
         resp.raise_for_status()
@@ -58,13 +56,15 @@ def main():
     vesInfo = VesctlInfo(s)
     hubTagExist = HubTagExist(s, vesInfo['tag'])
     if hubTagExist:
-        os.environ["build_container"] = "false"
+        os.system('echo "build_container=false" >> $GITHUB_ENV')
         print("Docker Hub container is up to date")
     else:
-        DLrelease(s, vesInfo['link'])
-        os.environ["build_container"] = "true"
-        os.environ['hub_tag'] = vesInfo['tag']
         print("Update to Docker Hub container needed")
+        DLrelease(s, vesInfo['link'])
+        print("Downloaded latest vesctl release")
+        os.system('echo "build_container=true" >> $GITHUB_ENV')
+        os.system('echo "tag={}" >> $GITHUB_ENV'.format(vesInfo['tag']))
+        print("Set build env vars")
 
 if __name__ == "__main__":
     main()
