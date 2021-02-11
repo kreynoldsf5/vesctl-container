@@ -30,7 +30,6 @@ def VesctlInfo(s):
     }
     
 def HubTagExist(s, tag):
-    print(GHenv)
     try:
         resp = s.get(DHurl)
         resp.raise_for_status()
