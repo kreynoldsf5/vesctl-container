@@ -8,7 +8,7 @@ except Exception as e:
     print(e)
 GLurl = "https://gitlab.com/api/graphql"
 GLquery = "{}/.github/GLquery.json".format(GHworkspace)
-DHurl = "https://hub.docker.com/v2/repositories/kreynoldsf5/vesctl/tags"
+DHurl = "https://hub.docker.com/v2/repositories/kreynoldsf5/vesctl-test/tags"
 DLpath = "{}/vesctl.linux-amd64.gz".format(GHworkspace)
 
 
