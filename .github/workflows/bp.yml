@@ -1,5 +1,7 @@
-name: build container and publish to Docker Hub
+name: build and publish to Docker Hub
 on:
+  schedule:
+    - cron:  '5 12 * * *'
   push:
     branches: main
 jobs:
@@ -39,7 +41,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: kreynoldsf5/vesctl-test:latest, kreynoldsf5/vesctl-test:${{ env.tag }}
+          tags: kreynoldsf5/vesctl:latest, kreynoldsf5/vesctl:${{ env.tag }}
       -
         name: Update repo description
         if: env.build_container == 'true'
@@ -47,7 +49,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: kreynoldsf5/vesctl-test
+          repository: kreynoldsf5/vesctl
       -
         name: Image digest
+        if: env.build_container == 'true'
         run: echo ${{ steps.docker_build.outputs.digest }}
