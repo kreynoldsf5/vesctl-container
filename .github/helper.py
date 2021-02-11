@@ -4,6 +4,7 @@ import os
 
 try:
     GHworkspace = os.environ.get("GITHUB_WORKSPACE")
+    GHenv = os.environ.get("GITHUB_ENV")
 except Exception as e:
     print(e)
 GLurl = "https://gitlab.com/api/graphql"
@@ -30,6 +31,7 @@ def VesctlInfo(s):
     }
     
 def HubTagExist(s, tag):
+    print(GHenv)
     try:
         resp = s.get(DHurl)
         resp.raise_for_status()

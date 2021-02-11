@@ -23,6 +23,10 @@ jobs:
         name: execute py script 
         run: |
           python $GITHUB_WORKSPACE/.github/helper.py
+      - 
+        name: debug env
+        run: |
+          echo $GITHUB_ENV
       -
         name: Login to DockerHub
         if: env.build_container == 'true'
