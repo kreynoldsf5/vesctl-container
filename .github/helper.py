@@ -56,11 +56,11 @@ def main():
     vesInfo = VesctlInfo(s)
     hubTagExist = HubTagExist(s, vesInfo['tag'])
     if hubTagExist:
-        os.environ["action_continue"] = "False"
+        os.environ["build_container"] = "false"
         print("Docker Hub container is up to date")
     else:
         DLrelease(s, vesInfo['link'])
-        os.environ["action_continue"] = "True"
+        os.environ["build_container"] = "true"
         os.environ['hub_tag'] = vesInfo['tag']
         print("Update to Docker Hub container needed")
 
