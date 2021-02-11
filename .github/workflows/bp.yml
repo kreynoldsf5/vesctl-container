@@ -23,10 +23,6 @@ jobs:
         name: execute py script 
         run: |
           python $GITHUB_WORKSPACE/.github/helper.py
-      - 
-        name: debug
-        run: |
-          ls -al
       -
         name: Login to DockerHub
         if: env.build_container == 'true'
@@ -50,5 +46,8 @@ jobs:
         uses: peter-evans/dockerhub-description@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: kreynoldsf5/vesctl-test
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
